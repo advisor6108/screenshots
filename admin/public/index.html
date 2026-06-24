@@ -49,14 +49,26 @@
         <div id="file-list" class="file-list"></div>
       </div>
 
+      <div class="form-row">
+        <label class="toggle-label">
+          <input type="checkbox" id="skip-ocr">
+          Skip text extraction (faster — just compress &amp; add images)
+        </label>
+      </div>
+
       <button class="btn-primary btn-lg" id="process-btn" disabled>Process images</button>
+      <p class="hint" id="process-hint">Choosing or creating a category is required before processing images.</p>
       <p class="status-msg hidden" id="upload-status"></p>
     </section>
 
     <!-- Step 2: Preview -->
     <section class="panel hidden" id="panel-preview">
       <h2>2. Review &amp; edit OCR text</h2>
-      <p class="hint">Edit extracted text if needed, then save.</p>
+      <p class="hint">Edit extracted text if needed, then save. Click × to remove an image from this batch.</p>
+      <div class="payload-warning hidden" id="payload-warning">
+        ⚠ Payload too large — remove some images before saving.
+        <span id="payload-size"></span>
+      </div>
       <div class="preview-grid" id="preview-grid"></div>
       <div class="preview-actions">
         <button class="btn-ghost" id="back-btn">← Back</button>

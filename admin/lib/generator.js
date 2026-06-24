@@ -45,6 +45,9 @@ function renderImageCard(img, fromCategory = false) {
   const confidence = img.ocrConfidence < 30 && img.ocrText
     ? `<span class="low-confidence" title="Low OCR confidence (${img.ocrConfidence}%)">⚠ low confidence</span>`
     : '';
+  const caption = img.ocrText
+    ? `<figcaption class="ocr-text">${confidence}${escapeHtml(img.ocrText)}</figcaption>`
+    : '';
   return `
       <figure class="image-card">
         <a href="${prefix}${escapeHtml(img.fullPath)}" target="_blank" rel="noopener">
@@ -53,10 +56,7 @@ function renderImageCard(img, fromCategory = false) {
                width="${img.thumbWidth}" height="${img.thumbHeight}"
                loading="lazy">
         </a>
-        <figcaption class="ocr-text">
-          ${confidence}
-          ${escapeHtml(img.ocrText) || '<em class="no-text">No text detected</em>'}
-        </figcaption>
+        ${caption}
       </figure>`;
 }
 

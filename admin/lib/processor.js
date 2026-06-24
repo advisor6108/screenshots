@@ -21,7 +21,7 @@ export async function terminateWorker() {
   if (tesseractWorker) await tesseractWorker.terminate();
 }
 
-export async function processImage(buffer, originalName, categorySlug) {
+export async function processImage(buffer, originalName, categorySlug, skipOcr = false) {
   const id = nanoid(8);
   const slug = makeSlug(originalName);
   const filenameBase = `${slug}-${id}`;
@@ -46,7 +46,13 @@ export async function processImage(buffer, originalName, categorySlug) {
       .toFile(join(categoryDir, fullFile)),
   ]);
 
-  const { data: ocrData } = await tesseractWorker.recognize(buffer);
+  let ocrText = '';
+  let ocrConfidence = 0;
+  if (!skipOcr) {
+    const { data } = await tesseractWorker.recognize(buffer);
+    ocrText = data.text.trim();
+    ocrConfidence = Math.round(data.confidence * 10) / 10;
+  }
 
   return {
     id,
@@ -58,13 +64,13 @@ export async function processImage(buffer, originalName, categorySlug) {
     fullPath,
     thumbWidth: thumbMeta.width,
     thumbHeight: thumbMeta.height,
-    ocrText: ocrData.text.trim(),
-    ocrConfidence: Math.round(ocrData.confidence * 10) / 10,
+    ocrText,
+    ocrConfidence,
   };
 }
 
-export async function processBatch(files, categorySlug) {
+export async function processBatch(files, categorySlug, skipOcr = false) {
   return Promise.all(
-    files.map(f => processImage(f.buffer, f.originalname, categorySlug))
+    files.map(f => processImage(f.buffer, f.originalname, categorySlug, skipOcr))
   );
 }

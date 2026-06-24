@@ -138,8 +138,7 @@ body {
 .category-card img,
 .cat-placeholder {
   width: 100%;
-  aspect-ratio: 4/3;
-  object-fit: cover;
+  height: auto;
   display: block;
   background: var(--border);
 }
@@ -173,7 +172,6 @@ body {
 
 .image-card a {
   display: block;
-  overflow: hidden;
 }
 
 .image-card img {

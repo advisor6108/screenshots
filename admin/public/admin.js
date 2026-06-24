@@ -102,8 +102,10 @@ function renderFileList() {
 }
 
 function updateProcessBtn() {
-  const btn = $('process-btn');
-  btn.disabled = !($('cat-select').value && selectedFiles.length > 0);
+  const hasCategory = !!$('cat-select').value;
+  const hasFiles = selectedFiles.length > 0;
+  $('process-btn').disabled = !(hasCategory && hasFiles);
+  $('process-hint').style.display = hasCategory ? 'none' : '';
 }
 
 // ── Process (upload + OCR) ──
@@ -120,6 +122,7 @@ $('process-btn').addEventListener('click', async () => {
   try {
     const form = new FormData();
     form.append('category', category);
+    form.append('skipOcr', $('skip-ocr').checked ? 'true' : 'false');
     selectedFiles.forEach(f => form.append('images', f));
 
     const res = await fetch('/api/upload', { method: 'POST', body: form });
@@ -138,8 +141,27 @@ $('process-btn').addEventListener('click', async () => {
   }
 });
 
+// ── Payload size check ──
+const PAYLOAD_LIMIT = 80 * 1024; // warn at 80 KB
+
+function checkPayloadSize() {
+  const toSave = previewResults.map(({ previewDataUrl: _, ...rest }) => rest);
+  const bytes = new TextEncoder().encode(JSON.stringify({ images: toSave })).length;
+  const warning = $('payload-warning');
+  const sizeEl = $('payload-size');
+  if (bytes > PAYLOAD_LIMIT) {
+    sizeEl.textContent = `(${(bytes / 1024).toFixed(1)} KB — limit is ${PAYLOAD_LIMIT / 1024} KB)`;
+    warning.classList.remove('hidden');
+    $('save-btn').disabled = true;
+  } else {
+    warning.classList.add('hidden');
+    $('save-btn').disabled = false;
+  }
+}
+
 // ── Preview grid ──
 function renderPreview() {
+  $('save-status').classList.add('hidden');
   const grid = $('preview-grid');
   grid.innerHTML = '';
   previewResults.forEach((img, i) => {
@@ -147,6 +169,7 @@ function renderPreview() {
     card.className = 'preview-card';
     const isLowConf = img.ocrConfidence < 30;
     card.innerHTML = `
+      <button class="preview-card-remove" data-i="${i}" title="Remove from batch">×</button>
       <img src="${img.previewDataUrl}" alt="">
       <div class="preview-card-body">
         <label>Extracted text</label>
@@ -159,12 +182,32 @@ function renderPreview() {
     grid.appendChild(card);
   });
 
+  // Remove button
+  grid.querySelectorAll('.preview-card-remove').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const i = Number(btn.dataset.i);
+      const img = previewResults[i];
+      // Clean up the WebP files already written to disk
+      await fetch('/api/discard', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ thumbPath: img.thumbPath, fullPath: img.fullPath }),
+      });
+      previewResults.splice(i, 1);
+      renderPreview();
+      checkPayloadSize();
+    });
+  });
+
   // Sync textarea edits back to previewResults
   grid.querySelectorAll('textarea').forEach(ta => {
     ta.addEventListener('input', () => {
       previewResults[Number(ta.dataset.i)].ocrText = ta.value;
+      checkPayloadSize();
     });
   });
+
+  checkPayloadSize();
 }
 
 // ── Save ──
@@ -173,10 +216,10 @@ $('save-btn').addEventListener('click', async () => {
   statusEl.textContent = 'Saving…';
   statusEl.className = 'status-msg';
   statusEl.classList.remove('hidden');
-  $('save-btn').disabled = true;
 
   try {
-    const res = await apiFetch('/api/save', 'POST', { images: previewResults });
+    const toSave = previewResults.map(({ previewDataUrl: _, ...rest }) => rest);
+    const res = await apiFetch('/api/save', 'POST', { images: toSave });
     const catLabel = $('cat-select').options[$('cat-select').selectedIndex].text;
     $('done-msg').textContent =
       `${res.saved} image(s) saved to "${catLabel}" and gallery pages updated.`;
@@ -184,7 +227,6 @@ $('save-btn').addEventListener('click', async () => {
   } catch (e) {
     statusEl.textContent = 'Error: ' + e.message;
     statusEl.className = 'status-msg error';
-    $('save-btn').disabled = false;
   }
 });
 

@@ -55,7 +55,8 @@ app.post('/api/upload', upload.array('images', 50), async (req, res) => {
     if (!category) return res.status(400).json({ error: 'Category is required' });
     if (!req.files?.length) return res.status(400).json({ error: 'No files uploaded' });
 
-    const results = await processBatch(req.files, category);
+    const skipOcr = req.body.skipOcr === 'true';
+    const results = await processBatch(req.files, category, skipOcr);
 
     // Return thumbnail as base64 for preview in admin UI
     const previews = await Promise.all(results.map(async r => {
@@ -82,6 +83,18 @@ app.post('/api/save', async (req, res) => {
     const data = await addImages(clean);
     await generate(data, DOCS_PATH);
     res.json({ saved: clean.length });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Discard preview files that were processed but not yet saved to data.json
+app.post('/api/discard', async (req, res) => {
+  try {
+    const { thumbPath, fullPath } = req.body;
+    const tryDelete = async p => { try { await unlink(join(DOCS_PATH, p)); } catch {} };
+    await Promise.all([tryDelete(thumbPath), tryDelete(fullPath)]);
+    res.json({ ok: true });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
