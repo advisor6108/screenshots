@@ -1,0 +1,224 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+  --text: #1e293b;
+  --muted: #64748b;
+  --sidebar-width: 220px;
+  --radius: 8px;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* ── Header ── */
+.site-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.site-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+}
+.site-title:hover { color: var(--accent-hover); }
+
+.site-subtitle {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.back-link {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+.back-link:hover { color: var(--accent); }
+
+/* ── Layout ── */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr var(--sidebar-width);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+  .sidebar { order: -1; }
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  position: sticky;
+  top: 1rem;
+}
+
+.sidebar h2 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar li + li { margin-top: 0.35rem; }
+
+.sidebar a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.9rem;
+  display: block;
+  padding: 0.2rem 0;
+  border-radius: 4px;
+}
+.sidebar a:hover { color: var(--accent); }
+
+/* ── Content headings ── */
+.content h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+}
+
+/* ── Category grid (index page) ── */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.25rem;
+}
+
+.category-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--text);
+  transition: box-shadow 0.15s, transform 0.15s;
+  display: flex;
+  flex-direction: column;
+}
+.category-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+  transform: translateY(-2px);
+}
+
+.category-card img,
+.cat-placeholder {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+  background: var(--border);
+}
+
+.cat-info {
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.cat-info strong { font-size: 0.95rem; }
+.cat-info span { font-size: 0.8rem; color: var(--muted); }
+
+/* ── Image grid (category page) ── */
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  .image-grid { grid-template-columns: 1fr; }
+}
+
+.image-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.image-card a {
+  display: block;
+  overflow: hidden;
+}
+
+.image-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.2s;
+}
+.image-card a:hover img { transform: scale(1.03); }
+
+.ocr-text {
+  padding: 0.75rem 1rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.5;
+  border-top: 1px solid var(--border);
+  white-space: pre-wrap;
+}
+
+.ocr-text em.no-text {
+  font-style: italic;
+  color: #b0b8c4;
+}
+
+.low-confidence {
+  font-size: 0.72rem;
+  color: #d97706;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+/* ── Empty state ── */
+.empty-state {
+  color: var(--muted);
+  font-size: 1rem;
+  padding: 2rem 0;
+}
+.empty-state a { color: var(--accent); }
+
+/* ── Footer ── */
+.site-footer {
+  border-top: 1px solid var(--border);
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 3rem;
+}

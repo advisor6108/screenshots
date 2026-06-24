@@ -1,0 +1,75 @@
+{
+  "categories": [
+    {
+      "slug": "automation-examples",
+      "label": "automation examples"
+    }
+  ],
+  "images": [
+    {
+      "id": "4ezZMcya",
+      "originalName": "Screenshot 2026-05-07 at 7.55.22â¯PM.png",
+      "slug": "screenshot-2026-05-07-at-7-55-22-pm",
+      "category": "automation-examples",
+      "uploadedAt": "2026-06-24T20:10:30.543Z",
+      "thumbPath": "images/automation-examples/thumb_screenshot-2026-05-07-at-7-55-22-pm-4ezZMcya.webp",
+      "fullPath": "images/automation-examples/full_screenshot-2026-05-07-at-7-55-22-pm-4ezZMcya.webp",
+      "thumbWidth": 800,
+      "thumbHeight": 239,
+      "ocrText": "[J] ®\nLead Scraping & Enrichment\n® [=| ul\nFind Prospects Gather Details Deliver Spreadsheet\nLinkedIn, Google, directories Contact info, business data Clean, organized, ready to contact",
+      "ocrConfidence": 83
+    },
+    {
+      "id": "N3GAyLM0",
+      "originalName": "Screenshot 2026-05-07 at 7.55.40â¯PM.png",
+      "slug": "screenshot-2026-05-07-at-7-55-40-pm",
+      "category": "automation-examples",
+      "uploadedAt": "2026-06-24T20:10:30.025Z",
+      "thumbPath": "images/automation-examples/thumb_screenshot-2026-05-07-at-7-55-40-pm-N3GAyLM0.webp",
+      "fullPath": "images/automation-examples/full_screenshot-2026-05-07-at-7-55-40-pm-N3GAyLM0.webp",
+      "thumbWidth": 800,
+      "thumbHeight": 336,
+      "ocrText": "Automated Outreach Sequences\nEmail and social media outreach — without doing it one by one\n~ < /\nDefine message Send automatically Follow up Track responses\nHours of copy-paste — Autopilot",
+      "ocrConfidence": 88
+    },
+    {
+      "id": "cr_f_OJu",
+      "originalName": "Screenshot 2026-05-07 at 7.55.58â¯PM.png",
+      "slug": "screenshot-2026-05-07-at-7-55-58-pm",
+      "category": "automation-examples",
+      "uploadedAt": "2026-06-24T20:10:29.424Z",
+      "thumbPath": "images/automation-examples/thumb_screenshot-2026-05-07-at-7-55-58-pm-cr_f_OJu.webp",
+      "fullPath": "images/automation-examples/full_screenshot-2026-05-07-at-7-55-58-pm-cr_f_OJu.webp",
+      "thumbWidth": 800,
+      "thumbHeight": 446,
+      "ocrText": "[J [J [\nLead Qualification\nAutomatically sort leads by how likely they are to buy\nSerious Buyers: \nFocus conversations here \nTire Kickers:\nFiltered out automatically\nNo more wasting time on people who will never pay",
+      "ocrConfidence": 89
+    },
+    {
+      "id": "a_02qRE_",
+      "originalName": "Screenshot 2026-05-07 at 7.55.22â¯PM.png",
+      "slug": "screenshot-2026-05-07-at-7-55-22-pm",
+      "category": "automation-examples",
+      "uploadedAt": "2026-06-24T20:16:11.103Z",
+      "thumbPath": "images/automation-examples/thumb_screenshot-2026-05-07-at-7-55-22-pm-a_02qRE_.webp",
+      "fullPath": "images/automation-examples/full_screenshot-2026-05-07-at-7-55-22-pm-a_02qRE_.webp",
+      "thumbWidth": 800,
+      "thumbHeight": 239,
+      "ocrText": "[J] ®\nLead Scraping & Enrichment\n® [=| ul\nFind Prospects Gather Details Deliver Spreadsheet\nLinkedIn, Google, directories Contact info, business data Clean, organized, ready to contact",
+      "ocrConfidence": 83
+    },
+    {
+      "id": "vIi5rOTG",
+      "originalName": "Screenshot 2026-05-07 at 7.56.19â¯PM.png",
+      "slug": "screenshot-2026-05-07-at-7-56-19-pm",
+      "category": "automation-examples",
+      "uploadedAt": "2026-06-24T20:26:14.021Z",
+      "thumbPath": "images/automation-examples/thumb_screenshot-2026-05-07-at-7-56-19-pm-vIi5rOTG.webp",
+      "fullPath": "images/automation-examples/full_screenshot-2026-05-07-at-7-56-19-pm-vIi5rOTG.webp",
+      "thumbWidth": 800,
+      "thumbHeight": 421,
+      "ocrText": "Inbound Lead Capture\n\nPassive Website:\n\nVisitors leave without a trace \n\n Active Lead Machine:\nEngages, answers, captures\ncontacts\nStart conversation, Answer questions, Collect info",
+      "ocrConfidence": 87
+    }
+  ]
+}

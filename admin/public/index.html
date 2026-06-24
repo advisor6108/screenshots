@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Screenshots Gallery</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <header class="admin-header">
+    <h1>Screenshots Gallery — Admin</h1>
+    <a href="/site/index.html" target="_blank" class="view-site-btn">View site ↗</a>
+  </header>
+
+  <main class="admin-main">
+
+    <!-- Step 1: Upload -->
+    <section class="panel" id="panel-upload">
+      <h2>1. Choose category &amp; images</h2>
+
+      <div class="form-row">
+        <label for="cat-select">Category</label>
+        <div class="cat-row">
+          <select id="cat-select">
+            <option value="">— select —</option>
+          </select>
+          <button class="btn-ghost" id="new-cat-toggle">+ New</button>
+        </div>
+      </div>
+
+      <div class="new-cat-form hidden" id="new-cat-form">
+        <div class="form-row">
+          <label for="new-cat-input">New category name</label>
+          <div class="cat-row">
+            <input type="text" id="new-cat-input" placeholder="e.g. Design">
+            <button class="btn-primary" id="create-cat-btn">Create</button>
+          </div>
+        </div>
+        <p class="hint" id="new-cat-hint"></p>
+      </div>
+
+      <div class="form-row">
+        <label>Images</label>
+        <div class="drop-zone" id="drop-zone">
+          <p>Drag &amp; drop images here, or <label class="file-link" for="file-input">browse</label></p>
+          <p class="hint">JPG, PNG, GIF, WebP — up to 50 MB each</p>
+          <input type="file" id="file-input" multiple accept="image/*" class="hidden">
+        </div>
+        <div id="file-list" class="file-list"></div>
+      </div>
+
+      <button class="btn-primary btn-lg" id="process-btn" disabled>Process images</button>
+      <p class="status-msg hidden" id="upload-status"></p>
+    </section>
+
+    <!-- Step 2: Preview -->
+    <section class="panel hidden" id="panel-preview">
+      <h2>2. Review &amp; edit OCR text</h2>
+      <p class="hint">Edit extracted text if needed, then save.</p>
+      <div class="preview-grid" id="preview-grid"></div>
+      <div class="preview-actions">
+        <button class="btn-ghost" id="back-btn">← Back</button>
+        <button class="btn-primary btn-lg" id="save-btn">Save all to gallery</button>
+      </div>
+      <p class="status-msg hidden" id="save-status"></p>
+    </section>
+
+    <!-- Step 3: Confirmation -->
+    <section class="panel hidden" id="panel-done">
+      <h2>Done!</h2>
+      <p id="done-msg"></p>
+      <div class="done-actions">
+        <button class="btn-primary" id="upload-more-btn">Upload more</button>
+        <a href="/site/index.html" target="_blank" class="btn-ghost">View site ↗</a>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="admin.js" type="module"></script>
+</body>
+</html>
